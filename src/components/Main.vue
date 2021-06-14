@@ -1,10 +1,12 @@
 <template>
-	<main class="p-5 d-flex">
-		<Card
-			:filmObject="filmObject.results[index]"
-			v-for="(film, index) in filmObject.results"
-			:key="index"
-		/>
+	<main class="p-5 d-flex container-fluid">
+		<div class="row">
+			<Card
+				:filmObject="filmObject.results[index]"
+				v-for="(film, index) in filmObject.results"
+				:key="index"
+			/>
+		</div>
 	</main>
 </template>
 
@@ -48,6 +50,5 @@ export default {
 main {
 	flex-wrap: wrap;
 	min-height: calc(100vh - #{$headerHeight});
-	background-color: yellow;
 }
 </style>
