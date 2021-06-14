@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
-		<Header />
-		<Main />
+		<Header @passoQuery="salvoQuery" />
+		<Main :queryString="queryString" />
 	</div>
 </template>
 
@@ -13,6 +13,16 @@ export default {
 	components: {
 		Header,
 		Main
+	},
+	data() {
+		return {
+			queryString: ""
+		};
+	},
+	methods: {
+		salvoQuery(queryString) {
+			this.queryString = queryString;
+		}
 	}
 };
 </script>

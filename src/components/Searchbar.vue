@@ -1,10 +1,19 @@
 <template>
 	<form class="row g-3">
 		<div class="col-auto">
-			<input type="text" class="form-control" placeholder="Input" />
+			<input
+				type="text"
+				class="form-control"
+				placeholder="Input"
+				v-model="queryString"
+			/>
 		</div>
 		<div class="col-auto">
-			<button type="submit" class="btn btn-primary">
+			<button
+				type="submit"
+				class="btn btn-primary"
+				@click.prevent="$emit('passoQuery', queryString)"
+			>
 				Confirm identity
 			</button>
 		</div>
@@ -13,7 +22,12 @@
 
 <script>
 export default {
-	name: "Searchbar"
+	name: "Searchbar",
+	data() {
+		return {
+			queryString: ""
+		};
+	}
 };
 </script>
 

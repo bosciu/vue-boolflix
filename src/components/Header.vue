@@ -4,7 +4,7 @@
 			<img src="../assets/images/logo.png" alt="Gianflix" />
 		</div>
 		<div class="form">
-			<Searchbar />
+			<Searchbar @passoQuery="passoQuery" />
 		</div>
 	</header>
 </template>
@@ -15,6 +15,11 @@ export default {
 	name: "Header",
 	components: {
 		Searchbar
+	},
+	methods: {
+		passoQuery(queryString) {
+			this.$emit("passoQuery", queryString);
+		}
 	}
 };
 </script>
