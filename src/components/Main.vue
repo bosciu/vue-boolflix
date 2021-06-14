@@ -7,6 +7,7 @@
 				v-for="(movie, index) in movies.results"
 				:key="movie.id"
 				titleKey="title"
+				originalTitleKey="original_title"
 			/>
 		</div>
 		<h2>Series</h2>
@@ -16,6 +17,7 @@
 				v-for="(serie, index) in series.results"
 				:key="serie.id"
 				titleKey="name"
+				originalTitleKey="original_name"
 			/>
 		</div>
 	</main>

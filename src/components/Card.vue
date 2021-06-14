@@ -2,7 +2,7 @@
 	<div class="card">
 		<ul>
 			<li>Titolo: {{ datas[titleKey] }}</li>
-			<li>Titolo originale: {{ datas.original_title }}</li>
+			<li>Titolo originale: {{ datas[originalTitleKey] }}</li>
 			<li>
 				Lingua originale:
 				<div v-if="flagFinded" class="flag-container">
@@ -29,7 +29,8 @@ export default {
 	},
 	props: {
 		datas: Object,
-		titleKey: String
+		titleKey: String,
+		originalTitleKey: String
 	},
 	created() {
 		const originalLang = this.language;
