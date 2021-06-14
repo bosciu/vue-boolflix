@@ -14,7 +14,7 @@
 				class="btn btn-primary"
 				@click.prevent="$emit('passoQuery', queryString)"
 			>
-				Confirm identity
+				Ricerca
 			</button>
 		</div>
 	</form>

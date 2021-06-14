@@ -1,18 +1,18 @@
 <template>
 	<div class="card">
 		<ul>
-			<li>Titolo: {{ filmObject.title }}</li>
-			<li>Titolo originale: {{ filmObject.original_title }}</li>
+			<li>Titolo: {{ datas[titleKey] }}</li>
+			<li>Titolo originale: {{ datas.original_title }}</li>
 			<li>
 				Lingua originale:
 				<div v-if="flagFinded" class="flag-container">
 					<img :src="flagPath" alt="" />
 				</div>
 				<div v-else class="lang-info">
-					{{ filmObject.original_language }}
+					{{ langUppercase }}
 				</div>
 			</li>
-			<li>Voto: {{ filmObject.vote_average }}</li>
+			<li>Voto: {{ datas.vote_average }}</li>
 		</ul>
 	</div>
 </template>
@@ -23,14 +23,16 @@ export default {
 	data() {
 		return {
 			flagFinded: false,
-			flagPath: ""
+			flagPath: "",
+			language: this.datas.original_language
 		};
 	},
 	props: {
-		filmObject: Object
+		datas: Object,
+		titleKey: String
 	},
 	created() {
-		const originalLang = this.filmObject.original_language;
+		const originalLang = this.language;
 		if (originalLang == "it" || originalLang == "en") {
 			if (originalLang == "it") {
 				this.flagPath = require("../assets/images/it.png");
@@ -38,6 +40,11 @@ export default {
 				this.flagPath = require("../assets/images/en.png");
 			}
 			this.flagFinded = true;
+		}
+	},
+	computed: {
+		langUppercase() {
+			return this.language.toUpperCase();
 		}
 	}
 };
