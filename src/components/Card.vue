@@ -20,7 +20,14 @@
 					{{ langUppercase }}
 				</div>
 			</li>
-			<li>Voto: {{ datas.vote_average }}</li>
+			<li>
+				Voto:
+				<i
+					v-for="i in 5"
+					:key="i"
+					:class="i <= finalRating ? 'fas fa-star' : 'far fa-star'"
+				></i>
+			</li>
 		</ul>
 	</div>
 </template>
@@ -69,12 +76,16 @@ export default {
 				}
 			}
 			return path;
+		},
+		finalRating() {
+			return Math.round(Math.round(this.datas.vote_average) / 2);
 		}
 	}
 };
 </script>
 
 <style lang="scss" scoped>
+@import "~@fortawesome/fontawesome-free/css/all.css";
 .card {
 	/* width: calc(100% / 5 - 30px); */
 	position: relative;
@@ -90,6 +101,9 @@ export default {
 	}
 	.flag {
 		width: 35px;
+	}
+	.fas.fa-star {
+		color: yellow;
 	}
 }
 </style>
