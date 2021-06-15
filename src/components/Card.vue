@@ -93,7 +93,6 @@ export default {
 @import "../style/variables";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 .card {
-	/* width: calc(100% / 5 - 30px); */
 	position: relative;
 	margin: 0 15px 30px;
 	padding: 15px;

@@ -2,11 +2,7 @@
 	<main class="p-5 container-fluid">
 		<h2 class="text-center mb-5">Movies</h2>
 		<div class="row justify-content-center">
-			<div
-				class="col-2 ml-1"
-				v-for="(movie, index) in movies"
-				:key="movie.id"
-			>
+			<div class="col-2" v-for="(movie, index) in movies" :key="movie.id">
 				<Card
 					:datas="movies[index]"
 					titleKey="title"
@@ -16,11 +12,7 @@
 		</div>
 		<h2 class="text-center m-5">Series</h2>
 		<div class="row justify-content-center">
-			<div
-				class="col-2 ml-1"
-				v-for="(serie, index) in series"
-				:key="serie.id"
-			>
+			<div class="col-2" v-for="(serie, index) in series" :key="serie.id">
 				<Card
 					:datas="series[index]"
 					titleKey="name"
@@ -81,5 +73,10 @@ export default {
 main {
 	flex-wrap: wrap;
 	min-height: calc(100vh - #{$headerHeight});
+	.row {
+		& > [class*="col"] {
+			margin-left: 1%;
+		}
+	}
 }
 </style>
