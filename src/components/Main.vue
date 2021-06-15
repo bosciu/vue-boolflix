@@ -1,32 +1,42 @@
 <template>
-	<main class="container-fluid" v-if="ricercaAvviata">
-		<h2 class="text-center mb-5">MOVIES</h2>
-		<div class="row justify-content-center">
-			<div class="col-2" v-for="(movie, index) in movies" :key="movie.id">
-				<Card
-					:datas="movies[index]"
-					titleKey="title"
-					originalTitleKey="original_title"
-					category="movie"
-					:genresTypes="moviesGenres"
-				/>
+	<div>
+		<main class="container-fluid" v-show="ricercaAvviata">
+			<h2 class="text-center mb-5">Film</h2>
+			<div class="row justify-content-center">
+				<div
+					class="col-2"
+					v-for="(movie, index) in movies"
+					:key="movie.id"
+				>
+					<Card
+						:datas="movies[index]"
+						titleKey="title"
+						originalTitleKey="original_title"
+						category="movie"
+						:genresTypes="moviesGenres"
+					/>
+				</div>
 			</div>
-		</div>
-		<h2 class="text-center m-5">SERIES</h2>
-		<div class="row justify-content-center">
-			<div class="col-2" v-for="(serie, index) in series" :key="serie.id">
-				<Card
-					:datas="series[index]"
-					titleKey="name"
-					originalTitleKey="original_name"
-					category="tv"
-					:genresTypes="seriesGenres"
-				/>
+			<h2 class="text-center m-5">Serie TV</h2>
+			<div class="row justify-content-center">
+				<div
+					class="col-2"
+					v-for="(serie, index) in series"
+					:key="serie.id"
+				>
+					<Card
+						:datas="series[index]"
+						titleKey="name"
+						originalTitleKey="original_name"
+						category="tv"
+						:genresTypes="seriesGenres"
+					/>
+				</div>
 			</div>
+		</main>
+		<div class="loader d-flex justify-content-center align-items-center">
+			Esegui una ricerca
 		</div>
-	</main>
-	<div class="loader d-flex justify-content-center align-items-center" v-else>
-		Esegui una ricerca
 	</div>
 </template>
 
@@ -101,6 +111,7 @@ export default {
 		Promise.all([getMoviesGenres(), getSeriesGenres()]).then((res) => {
 			this.moviesGenres = res[0].data.genres;
 			this.seriesGenres = res[1].data.genres;
+			this.$emit("passoGeneri", this.moviesGenres, this.seriesGenres);
 		});
 	}
 };

@@ -4,7 +4,11 @@
 			<img src="../assets/images/logo.png" alt="Gianflix" />
 		</div>
 		<div class="form">
-			<Searchbar @passoQuery="passoQuery" />
+			<Searchbar
+				@passoQuery="passoQuery"
+				:moviesGenre="moviesGenre"
+				:seriesGenre="seriesGenre"
+			/>
 		</div>
 	</header>
 </template>
@@ -15,6 +19,10 @@ export default {
 	name: "Header",
 	components: {
 		Searchbar
+	},
+	props: {
+		moviesGenre: Array,
+		seriesGenre: Array
 	},
 	methods: {
 		passoQuery(queryString) {
