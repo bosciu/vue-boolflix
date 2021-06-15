@@ -30,7 +30,7 @@
 					:class="i <= finalRating ? 'fas fa-star' : 'far fa-star'"
 				></i>
 			</li>
-			<li>
+			<li v-if="datas.overview != ''">
 				{{ datas.overview }}
 			</li>
 		</ul>
@@ -109,6 +109,9 @@ export default {
 	}
 	ul {
 		overflow: auto;
+		li {
+			margin: 5% 0;
+		}
 	}
 	.flag {
 		width: 35px;
