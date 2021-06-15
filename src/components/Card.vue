@@ -1,11 +1,13 @@
 <template>
 	<div class="card" @mouseover="isHover = true" @mouseleave="isHover = false">
-		<img
-			:src="imgSrc"
-			:alt="datas[titleKey]"
-			v-if="!isHover"
-			class="poster"
-		/>
+		<transition name="fade">
+			<img
+				:src="imgSrc"
+				:alt="datas[titleKey]"
+				v-if="!isHover"
+				class="poster"
+			/>
+		</transition>
 		<ul>
 			<li>Titolo: {{ datas[titleKey] }}</li>
 			<li v-if="datas[titleKey] != datas[originalTitleKey]">
@@ -27,6 +29,9 @@
 					:key="i"
 					:class="i <= finalRating ? 'fas fa-star' : 'far fa-star'"
 				></i>
+			</li>
+			<li>
+				{{ datas.overview }}
 			</li>
 		</ul>
 	</div>
@@ -85,6 +90,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../style/variables";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 .card {
 	/* width: calc(100% / 5 - 30px); */
@@ -92,18 +98,31 @@ export default {
 	margin: 0 15px 30px;
 	padding: 15px;
 	height: 350px;
-	background-color: red;
+	overflow: hidden;
+	background-color: $netflixGrey;
+	color: white;
 	img.poster {
 		height: 100%;
 		width: 100%;
 		position: absolute;
 		transform: translate(-15px, -15px);
 	}
+	ul {
+		overflow: auto;
+	}
 	.flag {
 		width: 35px;
 	}
 	.fas.fa-star {
 		color: yellow;
+	}
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: opacity 0.5s;
+	}
+	.fade-enter,
+	.fade-leave-to {
+		opacity: 0;
 	}
 }
 </style>

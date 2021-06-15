@@ -1,8 +1,12 @@
 <template>
 	<main class="p-5 container-fluid">
 		<h2 class="text-center mb-5">Movies</h2>
-		<div class="row">
-			<div class="col-3" v-for="(movie, index) in movies" :key="movie.id">
+		<div class="row justify-content-center">
+			<div
+				class="col-2 ml-1"
+				v-for="(movie, index) in movies"
+				:key="movie.id"
+			>
 				<Card
 					:datas="movies[index]"
 					titleKey="title"
@@ -11,8 +15,12 @@
 			</div>
 		</div>
 		<h2 class="text-center m-5">Series</h2>
-		<div class="row">
-			<div class="col-3" v-for="(serie, index) in series" :key="serie.id">
+		<div class="row justify-content-center">
+			<div
+				class="col-2 ml-1"
+				v-for="(serie, index) in series"
+				:key="serie.id"
+			>
 				<Card
 					:datas="series[index]"
 					titleKey="name"
