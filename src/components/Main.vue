@@ -1,24 +1,24 @@
 <template>
 	<main class="p-5 container-fluid">
-		<h2>Movies</h2>
+		<h2 class="text-center mb-5">Movies</h2>
 		<div class="row">
-			<Card
-				:datas="movies.results[index]"
-				v-for="(movie, index) in movies.results"
-				:key="movie.id"
-				titleKey="title"
-				originalTitleKey="original_title"
-			/>
+			<div class="col-3" v-for="(movie, index) in movies" :key="movie.id">
+				<Card
+					:datas="movies[index]"
+					titleKey="title"
+					originalTitleKey="original_title"
+				/>
+			</div>
 		</div>
-		<h2>Series</h2>
+		<h2 class="text-center m-5">Series</h2>
 		<div class="row">
-			<Card
-				:datas="series.results[index]"
-				v-for="(serie, index) in series.results"
-				:key="serie.id"
-				titleKey="name"
-				originalTitleKey="original_name"
-			/>
+			<div class="col-3" v-for="(serie, index) in series" :key="serie.id">
+				<Card
+					:datas="series[index]"
+					titleKey="name"
+					originalTitleKey="original_name"
+				/>
+			</div>
 		</div>
 	</main>
 </template>
@@ -59,20 +59,9 @@ export default {
 					}
 				});
 			Promise.all([getMovies(), getSeries()]).then((res) => {
-				this.movies = res[0].data;
-				this.series = res[1].data;
+				this.movies = res[0].data.results;
+				this.series = res[1].data.results;
 			});
-			/* axios
-				.get("https://api.themoviedb.org/3/search/movie/", {
-					params: {
-						api_key: "0584d677244cfdd2883b2bb13c97888b",
-						language: "it-IT",
-						query: val
-					}
-				})
-				.then((res) => {
-					this.filmObject = res.data;
-				}); */
 		}
 	},
 	methods: {}
