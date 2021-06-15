@@ -88,7 +88,7 @@ export default {
 			.get(this.creditsUrl, {
 				params: {
 					api_key: "0584d677244cfdd2883b2bb13c97888b",
-					language: "it_IT"
+					language: "it-IT"
 				}
 			})
 			.then((res) => {

@@ -61,7 +61,7 @@ export default {
 					axios.get("https://api.themoviedb.org/3/search/movie/", {
 						params: {
 							api_key: this.api_key,
-							language: "it_IT",
+							language: "it-IT",
 							query: val
 						}
 					});
@@ -69,7 +69,7 @@ export default {
 					axios.get("https://api.themoviedb.org/3/search/tv/", {
 						params: {
 							api_key: this.api_key,
-							language: "it_IT",
+							language: "it-IT",
 							query: val
 						}
 					});
@@ -88,14 +88,14 @@ export default {
 			axios.get("https://api.themoviedb.org/3/genre/movie/list", {
 				params: {
 					api_key: this.api_key,
-					language: "it_IT"
+					language: "it-IT"
 				}
 			});
 		const getSeriesGenres = () =>
 			axios.get("https://api.themoviedb.org/3/genre/tv/list", {
 				params: {
 					api_key: this.api_key,
-					language: "it_IT"
+					language: "it-IT"
 				}
 			});
 		Promise.all([getMoviesGenres(), getSeriesGenres()]).then((res) => {
