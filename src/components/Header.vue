@@ -27,7 +27,10 @@ export default {
 <style lang="scss" scoped>
 @import "../style/variables";
 header {
+	position: fixed;
+	z-index: 10;
 	height: $headerHeight;
+	width: 100%;
 	padding: 0 1%;
 	justify-content: space-between;
 	background-color: $netflixGrey;

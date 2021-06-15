@@ -4,7 +4,7 @@
 			<input
 				type="text"
 				class="form-control"
-				placeholder="Input"
+				placeholder="Inserisci titolo"
 				v-model="queryString"
 			/>
 		</div>

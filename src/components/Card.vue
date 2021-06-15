@@ -33,11 +33,23 @@
 			<li v-if="datas.overview != ''">
 				{{ datas.overview }}
 			</li>
+			<li v-if="actors.length > 0">
+				Cast:
+				<ul>
+					<li v-for="(actor, index) in actors" :key="index">
+						{{ actor.name }}
+					</li>
+				</ul>
+			</li>
+			<li v-for="(genre, index) in genres" :key="index">
+				{{ genre }}
+			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
 	name: "Card",
 	data() {
@@ -46,15 +58,22 @@ export default {
 			flagPath: "",
 			language: this.datas.original_language,
 			imgPath: "https://image.tmdb.org/t/p/w342/",
-			isHover: false
+			isHover: false,
+			genreId: undefined,
+			getUrl: "https://api.themoviedb.org/3/",
+			actors: [],
+			genres: []
 		};
 	},
 	props: {
 		datas: Object,
 		titleKey: String,
-		originalTitleKey: String
+		originalTitleKey: String,
+		category: String,
+		genresTypes: Array
 	},
 	created() {
+		/* GESTIONE BANDIERA DINAMICA */
 		const originalLang = this.language;
 		if (originalLang == "it" || originalLang == "en") {
 			if (originalLang == "it") {
@@ -64,11 +83,33 @@ export default {
 			}
 			this.flagFinded = true;
 		}
+		/* RICHIESTA ATTORI FILM */
+		axios
+			.get(this.creditsUrl, {
+				params: {
+					api_key: "0584d677244cfdd2883b2bb13c97888b",
+					language: "it_IT"
+				}
+			})
+			.then((res) => {
+				for (let i = 0; i < 5; i++)
+					if (res.data.cast[i] != undefined)
+						this.actors.push(res.data.cast[i]);
+			});
+		/* SALVO GENERI DEL FILM IN GENRES */
+		this.datas.genre_ids.forEach((element) => {
+			for (var i = 0; i < this.genresTypes.length; i++) {
+				if (element == this.genresTypes[i].id) {
+					this.genres.push(this.genresTypes[i].name);
+				}
+			}
+		});
 	},
 	computed: {
 		langUppercase() {
 			return this.language.toUpperCase();
 		},
+		/* GESTIONE PATH IMMAGINE */
 		imgSrc() {
 			let path = this.imgPath;
 			if (this.datas.poster_path != null) {
@@ -84,6 +125,12 @@ export default {
 		},
 		finalRating() {
 			return Math.round(Math.round(this.datas.vote_average) / 2);
+		},
+		/* RITORNO DEL URL PER GLI ATTORI */
+		creditsUrl() {
+			return `${this.getUrl}${
+				this.category
+			}/${this.datas.id.toString()}/credits`;
 		}
 	}
 };
@@ -98,7 +145,7 @@ export default {
 	padding: 15px;
 	height: 350px;
 	overflow: hidden;
-	background-color: $netflixGrey;
+	background-color: $netflixCard;
 	color: white;
 	img.poster {
 		height: 100%;
