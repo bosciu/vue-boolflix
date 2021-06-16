@@ -1,50 +1,57 @@
 <template>
 	<div>
-		<main class="container-fluid" v-show="ricercaAvviata">
-			<h2 class="text-center mb-5">Film</h2>
-			<h3 v-show="ricercaAvviata && filteredMovies.length == 0">
-				La ricerca non ha prodotto risultati
-			</h3>
-			<div class="row justify-content-center">
-				<div
-					class="col-2"
-					v-for="movie in filteredMovies"
-					:key="movie.id"
-				>
-					<Card
-						:datas="movie"
-						titleKey="title"
-						originalTitleKey="original_title"
-						category="movie"
-						:genresTypes="moviesGenres"
-					/>
-				</div>
+		<transition name="fade">
+			<div class="loader-gif" v-if="!isLoaded">
+				<img src="../assets/images/loader.gif" alt="Netflix" />
 			</div>
-			<h2 class="text-center m-5">Serie TV</h2>
-			<h3 v-show="ricercaAvviata && filteredSeries.length == 0">
-				La ricerca non ha prodotto risultati
-			</h3>
-			<div class="row justify-content-center">
-				<div
-					class="col-2"
-					v-for="serie in filteredSeries"
-					:key="serie.id"
-				>
-					<Card
-						:datas="serie"
-						titleKey="name"
-						originalTitleKey="original_name"
-						category="tv"
-						:genresTypes="seriesGenres"
-					/>
+		</transition>
+		<div>
+			<main class="container-fluid" v-show="ricercaAvviata">
+				<h2 class="text-center mb-5">Film</h2>
+				<h3 v-show="ricercaAvviata && filteredMovies.length == 0">
+					La ricerca non ha prodotto risultati
+				</h3>
+				<div class="row justify-content-center">
+					<div
+						class="col-2"
+						v-for="movie in filteredMovies"
+						:key="movie.id"
+					>
+						<Card
+							:datas="movie"
+							titleKey="title"
+							originalTitleKey="original_title"
+							category="movie"
+							:genresTypes="moviesGenres"
+						/>
+					</div>
 				</div>
+				<h2 class="text-center m-5">Serie TV</h2>
+				<h3 v-show="ricercaAvviata && filteredSeries.length == 0">
+					La ricerca non ha prodotto risultati
+				</h3>
+				<div class="row justify-content-center">
+					<div
+						class="col-2"
+						v-for="serie in filteredSeries"
+						:key="serie.id"
+					>
+						<Card
+							:datas="serie"
+							titleKey="name"
+							originalTitleKey="original_name"
+							category="tv"
+							:genresTypes="seriesGenres"
+						/>
+					</div>
+				</div>
+			</main>
+			<div
+				class="loader d-flex justify-content-center align-items-center"
+				v-if="!ricercaAvviata && isLoaded"
+			>
+				Esegui una ricerca
 			</div>
-		</main>
-		<div
-			class="loader d-flex justify-content-center align-items-center"
-			v-if="!ricercaAvviata"
-		>
-			Esegui una ricerca
 		</div>
 	</div>
 </template>
@@ -64,7 +71,8 @@ export default {
 			ricercaAvviata: false,
 			api_key: "0584d677244cfdd2883b2bb13c97888b",
 			moviesGenres: [],
-			seriesGenres: []
+			seriesGenres: [],
+			isLoaded: false
 		};
 	},
 	props: {
@@ -158,6 +166,9 @@ export default {
 			this.seriesGenres = res[1].data.genres;
 			this.$emit("passoGeneri", this.moviesGenres, this.seriesGenres);
 		});
+		setTimeout(() => {
+			this.isLoaded = true;
+		}, 2000);
 	}
 };
 </script>
@@ -188,5 +199,26 @@ main {
 	height: 100vh;
 	padding-top: $headerHeight;
 	font-size: 45px;
+}
+.loader-gif {
+	color: transparent;
+	position: relative;
+	z-index: 100;
+	background-color: black;
+	height: 100vh;
+	img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 60%;
+	}
+}
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+	opacity: 0;
 }
 </style>
