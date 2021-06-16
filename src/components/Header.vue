@@ -6,6 +6,8 @@
 		<div class="form">
 			<Searchbar
 				@passoQuery="passoQuery"
+				@genereSerieSelezionato="genereSerieSelezionato"
+				@genereFilmSelezionato="genereFilmSelezionato"
 				:moviesGenre="moviesGenre"
 				:seriesGenre="seriesGenre"
 			/>
@@ -27,6 +29,12 @@ export default {
 	methods: {
 		passoQuery(queryString) {
 			this.$emit("passoQuery", queryString);
+		},
+		genereSerieSelezionato(genereSerieSelezionato) {
+			this.$emit("genereSerieSelezionato", genereSerieSelezionato);
+		},
+		genereFilmSelezionato(genereFilmSelezionato) {
+			this.$emit("genereFilmSelezionato", genereFilmSelezionato);
 		}
 	}
 };
@@ -46,7 +54,9 @@ header {
 		height: 100%;
 	}
 	.form {
+		display: flex;
 		align-self: center;
+		width: 100%;
 	}
 }
 </style>

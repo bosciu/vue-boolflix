@@ -3,12 +3,16 @@
 		<Select
 			class="col-auto"
 			:datas="seriesGenre"
+			@passoGenereSelezionato="genereSerieSelezionato"
 			msg="Filtra il genere delle serie TV"
+			firstOption="Tutte le serie"
 		/>
 		<Select
 			class="col-auto"
 			:datas="moviesGenre"
+			@passoGenereSelezionato="genereFilmSelezionato"
 			msg="Filtra il genere dei film"
+			firstOption="Tutti i film"
 		/>
 		<div class="col-auto">
 			<input
@@ -45,8 +49,22 @@ export default {
 		return {
 			queryString: ""
 		};
+	},
+	methods: {
+		genereSerieSelezionato(genereSerieSelezionato) {
+			this.$emit("genereSerieSelezionato", genereSerieSelezionato);
+		},
+		genereFilmSelezionato(genereFilmSelezionato) {
+			this.$emit("genereFilmSelezionato", genereFilmSelezionato);
+		}
 	}
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+form {
+	width: 100%;
+	justify-content: flex-end;
+	align-items: center;
+}
+</style>

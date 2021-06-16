@@ -5,11 +5,11 @@
 			<div class="row justify-content-center">
 				<div
 					class="col-2"
-					v-for="(movie, index) in movies"
+					v-for="movie in filteredMovies"
 					:key="movie.id"
 				>
 					<Card
-						:datas="movies[index]"
+						:datas="movie"
 						titleKey="title"
 						originalTitleKey="original_title"
 						category="movie"
@@ -21,11 +21,11 @@
 			<div class="row justify-content-center">
 				<div
 					class="col-2"
-					v-for="(serie, index) in series"
+					v-for="serie in filteredSeries"
 					:key="serie.id"
 				>
 					<Card
-						:datas="series[index]"
+						:datas="serie"
 						titleKey="name"
 						originalTitleKey="original_name"
 						category="tv"
@@ -34,7 +34,10 @@
 				</div>
 			</div>
 		</main>
-		<div class="loader d-flex justify-content-center align-items-center">
+		<div
+			class="loader d-flex justify-content-center align-items-center"
+			v-if="!ricercaAvviata"
+		>
 			Esegui una ricerca
 		</div>
 	</div>
@@ -50,8 +53,8 @@ export default {
 	},
 	data() {
 		return {
-			movies: {},
-			series: {},
+			movies: [],
+			series: [],
 			ricercaAvviata: false,
 			api_key: "0584d677244cfdd2883b2bb13c97888b",
 			moviesGenres: [],
@@ -59,7 +62,9 @@ export default {
 		};
 	},
 	props: {
-		queryString: String
+		queryString: String,
+		genereSerieSelezionato: Number,
+		genereFilmSelezionato: Number
 	},
 	watch: {
 		/* FACCIO CHIAMATA FILM E SERIE CON QUERY  DI HEADER */
@@ -89,6 +94,40 @@ export default {
 					this.ricercaAvviata = true;
 				});
 			}
+		}
+	},
+	computed: {
+		filteredMovies() {
+			var filteredArray = [];
+			if (
+				this.genereFilmSelezionato == undefined ||
+				this.genereFilmSelezionato == -1
+			) {
+				filteredArray = this.movies;
+			} else {
+				filteredArray = this.movies.filter((element) => {
+					return element.genre_ids.includes(
+						this.genereFilmSelezionato
+					);
+				});
+			}
+			return filteredArray;
+		},
+		filteredSeries() {
+			var filteredArray = [];
+			if (
+				this.genereSerieSelezionato == undefined ||
+				this.genereSerieSelezionato == -1
+			) {
+				filteredArray = this.series;
+			} else {
+				filteredArray = this.series.filter((element) => {
+					return element.genre_ids.includes(
+						this.genereSerieSelezionato
+					);
+				});
+			}
+			return filteredArray;
 		}
 	},
 	methods: {},

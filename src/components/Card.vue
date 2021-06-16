@@ -16,7 +16,7 @@
 			<li>
 				Lingua originale:
 				<span v-if="flagFinded" class="flag-container">
-					<img :src="flagPath" alt="" class="flag" />
+					<img :src="flagPath" :alt="language" class="flag" />
 				</span>
 				<div v-else class="lang-info">
 					{{ langUppercase }}
@@ -75,13 +75,15 @@ export default {
 	created() {
 		/* GESTIONE BANDIERA DINAMICA */
 		const originalLang = this.language;
-		if (originalLang == "it" || originalLang == "en") {
-			if (originalLang == "it") {
+		switch (originalLang) {
+			case "it":
 				this.flagPath = require("../assets/images/it.png");
-			} else if (originalLang == "en") {
+				this.flagFinded = true;
+				break;
+			case "en":
 				this.flagPath = require("../assets/images/en.png");
-			}
-			this.flagFinded = true;
+				this.flagFinded = true;
+				break;
 		}
 		/* RICHIESTA ATTORI FILM */
 		axios
