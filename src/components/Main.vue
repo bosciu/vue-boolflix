@@ -2,6 +2,9 @@
 	<div>
 		<main class="container-fluid" v-show="ricercaAvviata">
 			<h2 class="text-center mb-5">Film</h2>
+			<h3 v-show="ricercaAvviata && filteredMovies.length == 0">
+				La ricerca non ha prodotto risultati
+			</h3>
 			<div class="row justify-content-center">
 				<div
 					class="col-2"
@@ -18,6 +21,9 @@
 				</div>
 			</div>
 			<h2 class="text-center m-5">Serie TV</h2>
+			<h3 v-show="ricercaAvviata && filteredSeries.length == 0">
+				La ricerca non ha prodotto risultati
+			</h3>
 			<div class="row justify-content-center">
 				<div
 					class="col-2"
@@ -170,6 +176,12 @@ main {
 	}
 	h2 {
 		color: $netflixRed;
+	}
+	h3 {
+		text-align: center;
+		color: white;
+		text-decoration: underline;
+		font-size: 36px;
 	}
 }
 .loader {
