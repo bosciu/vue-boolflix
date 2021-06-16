@@ -144,7 +144,6 @@ export default {
 			return filteredArray;
 		}
 	},
-	methods: {},
 	created() {
 		/* SALVO ARRAY DEI GENERI FILM & SERIES */
 		const getMoviesGenres = () =>
